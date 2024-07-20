@@ -1,18 +1,18 @@
 # This is jammy based. Somewhat important because we wanna support both arm64 and x86_64
 FROM azul/zulu-openjdk:21.0.4-jre
 
+ARG TARGETPLATFORM
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
-# Install muxtools
-RUN apt-get -qq update && apt-get -qq -y install git wget python3 python3-pip python-is-python3
-RUN pip3 install --user git+https://github.com/Vodes/muxtools-styx.git
+# https://github.com/Vodes/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-nonfree.tar.xz
 
-# Install mediainfo
-RUN wget https://mediaarea.net/repo/deb/repo-mediaarea_1.0-24_all.deb && dpkg -i repo-mediaarea_1.0-24_all.deb && apt-get update
-RUN apt-get -y install mediainfo
+# Install everything else
+RUN curl -fsSL https://raw.githubusercontent.com/Vodes/styx-baseimage/main/packages.sh | bash
 
-# Install mkvtoolnix
-RUN wget -O /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
-RUN echo "deb [signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list
-RUN echo "\ndeb-src [signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list
-RUN apt-get update && apt-get -y install mkvtoolnix
+# Install ffmpeg
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then ARCHITECTURE=linux64; elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then ARCHITECTURE=linuxarm64; else ARCHITECTURE=linux64; fi \
+    && mkdir -p /opt/ffmpeg \
+    && wget "https://github.com/Vodes/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-${ARCHITECTURE}-nonfree.tar.xz" \
+    && tar -xvf "ffmpeg-master-latest-${ARCHITECTURE}-nonfree.tar.xz" -C /opt/ffmpeg --strip-components=1 \
+    && chmod -R u+x /opt/ffmpeg/bin \
+    && ln -s "/opt/ffmpeg/bin/ffmpeg" /usr/local/bin/ && ln -s "/opt/ffmpeg/bin/ffprobe" /usr/local/bin/
