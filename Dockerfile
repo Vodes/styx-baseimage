@@ -6,7 +6,10 @@ ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 # https://github.com/Vodes/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-nonfree.tar.xz
 
-# Install everything else
+# Install curl
+RUN apt-get update && apt-get -y install curl
+
+# Install everything else (not ffmpeg)
 RUN curl -fsSL https://raw.githubusercontent.com/Vodes/styx-baseimage/main/packages.sh | bash
 
 # Install ffmpeg
