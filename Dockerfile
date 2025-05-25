@@ -1,5 +1,5 @@
 # This is jammy based. Somewhat important because we wanna support both arm64 and x86_64
-FROM azul/zulu-openjdk:21.0.5-jre
+FROM azul/zulu-openjdk:21.0.7-jre
 
 ARG TARGETPLATFORM
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
