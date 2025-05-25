@@ -2,7 +2,7 @@
  Docker baseimage for Styx stuff
 
 ### What is this
-Based on `azul/zulu-openjdk:21.0.5-jre` (Ubuntu 22.04 with the Zulu JRE 21)
+Based on `azul/zulu-openjdk:21.0.7-jre` (Ubuntu 22.04 with the Zulu JRE 21)
 
 Also installs:
 - [muxtools](https://github.com/Jaded-Encoding-Thaumaturgy/muxtools)/[-styx](https://github.com/Vodes/muxtools-styx)
