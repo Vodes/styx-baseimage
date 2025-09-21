@@ -8,7 +8,11 @@ ENV PIP_BREAK_SYSTEM_PACKAGES=1
 # https://github.com/Vodes/FFmpeg-Builds/releases/download/latest/ffmpeg-n7.1-latest-linux64-nonfree-7.1.tar.xz
 
 # Install curl
-RUN apt-get update && apt-get -y install curl
+RUN apt-get update && apt-get -y install curl unzip
+
+# Add some common fonts
+COPY common-fonts.zip .
+RUN mkdir -p /usr/local/share/fonts && unzip -o common-fonts.zip -d /usr/local/share/fonts && rm common-fonts.zip
 
 # Install everything else (not ffmpeg)
 RUN curl -fsSL https://raw.githubusercontent.com/Vodes/styx-baseimage/main/packages.sh | bash
