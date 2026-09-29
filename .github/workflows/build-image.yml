@@ -24,7 +24,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.DOCKER_USER }}/styx-baseimage:latest
+          tags: ${{ vars.DOCKER_USER }}/styx-baseimage:latest,${{ vars.DOCKER_USER }}/styx-baseimage:v1
       - name: "Update description"
         uses: peter-evans/dockerhub-description@v4
         with:
