@@ -6,7 +6,7 @@ FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
 FROM bellsoft/liberica-runtime-container:jre-21-glibc
 ARG PYTHON_VERSION=3.14
 ARG MUXTOOLS_VERSION=0.5.0b1
-ARG MUXTOOLS_STYX_VERSION=0.3.0b1
+ARG MUXTOOLS_STYX_VERSION=0.3.0b2
 ARG MUXTOOLS_BINARIES_PACKAGES="mkvtoolnix==102.0,flac==1.5.0.post2,ffmpeg==9.0.2-r2"
 
 RUN apk add --no-cache \
