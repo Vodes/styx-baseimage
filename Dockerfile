@@ -18,7 +18,8 @@ RUN apk add --no-cache \
     git \
     libgcc \
     libstdc++ \
-    unzip
+    unzip \
+    tzdata
 
 COPY --from=uv /uv /uvx /usr/local/bin/
 
